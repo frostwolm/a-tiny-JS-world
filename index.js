@@ -7,8 +7,57 @@
 
 // ======== OBJECTS DEFINITIONS ========
 // Define your objects here
+const dog = {
+  species:'dog',
+  name: 'Flow',
+  gender: 'female',
+  legs: 4,
+  hands: 0,
+  saying: 'woof-woof!',
+  friends:[]
+};
+const cat = {
+  species:'cat',
+  name: 'Mars',
+  gender: 'male',
+  legs: 4,
+  hands: 0,
+  saying: 'meow!',
+  friends:[]
+};
+const man = {
+  species:'human',
+  name: 'Adrian',
+  gender: 'male',
+  legs: 2,
+  hands: 2,
+  saying: 'Good Morning, Vietnam!',
+  friends:[]
+};
+const woman = {
+  species:'human',
+  name: 'Trinh',
+  gender: 'female',
+  legs: 2,
+  hands: 2,
+  saying: 'Hin chao!',
+  friends:[]
+};
+const catWoman = {
+  species:'human',
+  name: 'Kate',
+  gender: 'female',
+  legs: 2,
+  hands: 2,
+  saying: cat.saying,
+  friends:[]
+};
 
-
+dog.friends.push(cat, man);
+cat.friends.push(dog, catWoman);
+man.friends.push(dog, woman);
+woman.friends.push(man);
+catWoman.friends.push(cat);
 // ======== OUTPUT ========
 /* Use print(message) for output.
    Default tag for message is <pre>. Use print(message,'div') to change containing element tag.
@@ -27,5 +76,22 @@
    print('human; <strong>John</strong>; male; 2; 2; <em>Hello world!</em>; Rex, Tom, Jenny');
    print('human; <strong>John</strong>; male; 2; 2; <em>Hello world!</em>; Rex, Tom, Jenny', 'div');
    */
+function getStrFromObj(obj) {
+  let arr = [];
+  Object.values(obj).forEach((item) => {
+    if (Array.isArray(item)) {
+      let names = [];
+      item.forEach((frnd) => {
+        names.push(frnd.name);
+      });
+      arr.push(names.join(', '));
+    }else{
+      arr.push(item);
+    }
+  });
+  return arr.join('; ');
+}
 
-
+[dog, cat, man, woman, catWoman].forEach((hab) => {
+  print(getStrFromObj(hab));
+})
